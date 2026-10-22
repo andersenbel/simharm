@@ -1,0 +1,17 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+._*
+# private project brief
+TASK.md
+.cache/
+.private/
+# article materials (published separately, not part of the experiment repo)
+article/
+results/figures/uk/
+analysis/scheme_figure.py
+analysis/article_uk_figures.py

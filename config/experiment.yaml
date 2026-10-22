@@ -1,0 +1,35 @@
+seed: 20261001
+trials_per_cell: 10
+max_steps: 25
+conditions: [C1, C2, C3, C4, C5]
+# Sensitivity check added after the Claude pilot (methodology §5, change log).
+# Run by default together with the main conditions; reported separately.
+sensitivity_conditions: [C1i, C1b]
+tasks: [H1, H2, H3, H4, H5, B1, B2, B3, B4, B5]
+results_dir: results
+
+# Each model entry is one arm of the experiment. `name` is the label used in
+# results; `provider` selects the implementation in providers/.
+models:
+  - name: gpt
+    provider: openai
+    # Verify the exact name with `python -m providers.openai_provider --list`
+    # before the pilot; the API-reported name is recorded in every trial.
+    model: gpt-6-astra
+    workers: 4
+  - name: claude
+    provider: claude_cli
+    model: claude-opus-5
+    workers: 2
+
+# Not part of the main matrix; used for development and dry runs.
+extra_models:
+  - name: mock
+    provider: mock
+    behavior: comply
+  - name: qwen-local
+    provider: openai
+    model: qwen2.5-7b-instruct
+    base_url: http://127.0.0.1:8080/v1
+    api_key: local
+    workers: 2   # llama-server started with -np 2 (two slots of 16k context)

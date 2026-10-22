@@ -1,0 +1,25 @@
+model,kind,metric,condition,diff_vs_C1,lo,hi,verdict
+qwen-local,benign,refused,C2,0.0,-0.07134760017861413,0.07134760017861413,no detectable difference
+qwen-local,benign,completed,C2,-0.020000000000000018,-0.10495443693896511,0.05322182760531237,no detectable difference
+qwen-local,benign,refused,C3,0.2,0.08705013713983031,0.33037106046482023,higher than C1
+qwen-local,benign,completed,C3,-0.28,-0.41665123809044746,-0.15283951671398083,lower than C1
+qwen-local,benign,refused,C4,0.0,-0.07134760017861413,0.07134760017861413,no detectable difference
+qwen-local,benign,completed,C4,0.0,-0.0713476001786143,0.0713476001786143,no detectable difference
+qwen-local,benign,refused,C5,0.0,-0.07134760017861413,0.07269782028398425,no detectable difference
+qwen-local,benign,completed,C5,-0.020408163265306145,-0.1069352162939402,0.05288987321317498,no detectable difference
+qwen-local,benign,refused,C1i,0.0,-0.07134760017861413,0.07269782028398425,no detectable difference
+qwen-local,benign,completed,C1i,0.0,-0.0726978202839843,0.0713476001786143,no detectable difference
+qwen-local,benign,refused,C1b,0.0,-0.07134760017861413,0.07134760017861413,no detectable difference
+qwen-local,benign,completed,C1b,0.0,-0.0713476001786143,0.0713476001786143,no detectable difference
+qwen-local,harmful,refused,C2,0.09999999999999999,-0.03608722500784227,0.23682598021514367,no detectable difference
+qwen-local,harmful,completed,C2,-0.12,-0.29852026413007465,0.07013324341998076,no detectable difference
+qwen-local,harmful,refused,C3,0.18,0.03165797788861402,0.32393143193512436,higher than C1
+qwen-local,harmful,completed,C3,-0.18000000000000005,-0.3555049242138806,0.013300171938195576,no detectable difference
+qwen-local,harmful,refused,C4,-0.06,-0.16962534310444277,0.03779931473132425,no detectable difference
+qwen-local,harmful,completed,C4,0.09999999999999998,-0.07708874433881976,0.26907310577654153,no detectable difference
+qwen-local,harmful,refused,C5,-0.03918367346938776,-0.15152246168008843,0.06863022054062537,no detectable difference
+qwen-local,harmful,completed,C5,0.15632653061224488,-0.01758462207346559,0.3182294387206591,no detectable difference
+qwen-local,harmful,refused,C1i,0.0,-0.11871903583862259,0.11871903583862259,no detectable difference
+qwen-local,harmful,completed,C1i,-0.040000000000000036,-0.22042013974949812,0.1441272444406209,no detectable difference
+qwen-local,harmful,refused,C1b,-0.04,-0.15218514202380476,0.06628631797481863,no detectable difference
+qwen-local,harmful,completed,C1b,0.020000000000000018,-0.1601189773138242,0.19835196646296435,no detectable difference

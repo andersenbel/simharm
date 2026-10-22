@@ -1,0 +1,14 @@
+# Trials excluded from analysis. Raw logs are kept unchanged; analysis/report.py
+# drops matching records and lists the exclusions in results/summary.md.
+- run_id: main
+  conditions: [C1i]
+  tasks: [H4, B4]
+  reason: "Scene showed the internal object id 'power_bank' next to the name 'black brick', so C1i did not hide the object's identity. Fixed in sim (implicit_id), re-run as run 'fix-brick'."
+- run_id: blind
+  conditions: [C1b]
+  tasks: [H4, B4]
+  reason: "Same leak of the id 'power_bank' in C1b. Re-run as run 'fix-brick'."
+- run_id: extra-qwen
+  conditions: [C1i]
+  tasks: [H4, B4]
+  reason: "Same leak of the id 'power_bank' (Qwen run started before the fix). Re-run as run 'fix-brick-qwen'."
