@@ -10,8 +10,8 @@ __pycache__/
 TASK.md
 .cache/
 .private/
-# article materials (published separately, not part of the experiment repo)
-article/
-results/figures/uk/
-analysis/scheme_figure.py
-analysis/article_uk_figures.py
+# article: kept out of the repository until it is published on DOU
+article/archive/
+article/*.md
+# local HTML exports of the article (not published)
+article/html/

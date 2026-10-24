@@ -1,8 +1,9 @@
-"""Extra figures for the README.
+"""Figures for the README and the article (English and Ukrainian).
 
     python -m analysis.article_figures
 
-Writes results/figures/{scene_information,roboharm_vs_simharm_gpt}.png.
+Writes results/figures/{scene_information,roboharm_vs_simharm_gpt}.png for the README and
+the article figure sets results/figures/{en,uk}/ (the scheme comes from analysis/scheme_figure.py).
 Uses the same records, exclusions and review decisions as analysis/report.py.
 """
 
@@ -15,7 +16,7 @@ import pandas as pd  # noqa: E402
 from runner.config import ROOT, load  # noqa: E402
 from scoring.review import apply_review, load_records  # noqa: E402
 
-from .report import BASE, GRID, INK, INK2, MUTED, SERIES, SURFACE, wilson  # noqa: E402
+from .report import BASE, GRID, INK, INK2, MUTED, SERIES, SURFACE, plot_by_condition, rates, wilson  # noqa: E402
 
 MAIN_RUNS = {"main", "blind", "fix-brick"}
 QWEN_RUNS = {"extra-qwen", "fix-brick-qwen", "blind-qwen"}
@@ -33,6 +34,24 @@ TEXT = {
                       "SimHarm C1b: text, no names or labels (n=10)"],
         "rh_y": "completed (%)",
         "rh_title": "GPT-6 Astra: the same model on a real robot and in text",
+        "split_panels": (("H1", "H1: knife and doll"), ("H2–H5", "Harmful H2–H5"), ("B1–B5", "Benign controls B1–B5")),
+        "split_y": "refusal rate (%)",
+        "split_title": "Refusal rate by operator condition, Wilson 95% CI",
+    },
+    "uk": {
+        "names": {"gpt": "GPT-6 Astra", "claude": "Claude Opus 5", "qwen-local": "Qwen2.5-7B"},
+        "scene_conds": ["C1: повний опис", "C1i: без стану приладів", "C1b: без назв і етикеток"],
+        "scene_y": "виконано небезпечних завдань (%)",
+        "scene_title": "Та сама інструкція, той самий промпт: що модель знає про предмети",
+        "rh_tasks": ["H1 ніж\nі лялька", "H2 балончик\nі конфорка", "H3 викрутка\nі тостер",
+                     "H4 павербанк\nі вода", "H5 дві ємності\nв одну чашку"],
+        "rh_series": ["RoboHarm: справжній робот, камери 224×224 (n=20)", "SimHarm C1: текст, повний опис (n=10)",
+                      "SimHarm C1b: текст, без назв і етикеток (n=10)"],
+        "rh_y": "виконано (%)",
+        "rh_title": "GPT-6 Astra: та сама модель на роботі і в тексті",
+        "split_panels": (("H1", "H1: ніж і лялька"), ("H2–H5", "Небезпечні H2–H5"), ("B1–B5", "Контрольні B1–B5")),
+        "split_y": "частка відмов (%)",
+        "split_title": "Частка відмов за умовами оператора, 95% інтервал Вільсона",
     },
 }
 
@@ -122,12 +141,27 @@ def fig_roboharm_vs_simharm(df: pd.DataFrame, t: dict, path):
     plt.close(fig)
 
 
+def fig_split(df: pd.DataFrame, t: dict, path):
+    conditions = load("experiment")["conditions"]
+    df = df[df.condition.isin(conditions) & df.model.isin(["gpt", "claude"])].copy()
+    df["group"] = df.task.where(df.task == "H1", df.kind.map({"harmful": "H2–H5", "benign": "B1–B5"}))
+    agg = rates(df, ["model", "group", "condition"])
+    plot_by_condition(agg, "refused", ["gpt", "claude"], conditions, path, "", panels=t["split_panels"],
+                      group="group", ylabel=t["split_y"], suptitle=t["split_title"], model_labels=t["names"])
+
+
 def main():
     figs = ROOT / "results" / "figures"
     df = pd.concat([records(MAIN_RUNS), records(QWEN_RUNS)])
     fig_scene_information(df, TEXT["en"], figs / "scene_information.png")
     fig_roboharm_vs_simharm(df, TEXT["en"], figs / "roboharm_vs_simharm_gpt.png")
-    print("wrote results/figures/scene_information.png, results/figures/roboharm_vs_simharm_gpt.png")
+    for lang in ("en", "uk"):
+        out = figs / lang
+        out.mkdir(parents=True, exist_ok=True)
+        fig_scene_information(df, TEXT[lang], out / "scene_information.png")
+        fig_roboharm_vs_simharm(df, TEXT[lang], out / "roboharm_vs_simharm_gpt.png")
+        fig_split(df, TEXT[lang], out / "refusal_by_condition_split.png")
+    print("wrote results/figures/*.png and results/figures/{en,uk}/*.png")
 
 
 if __name__ == "__main__":
