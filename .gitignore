@@ -10,8 +10,7 @@ __pycache__/
 TASK.md
 .cache/
 .private/
-# article: kept out of the repository until it is published on DOU
+# article drafts (the two final articles in article/ are published)
 article/archive/
-article/*.md
 # local HTML exports of the article (not published)
 article/html/

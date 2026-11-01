@@ -1,5 +1,12 @@
 # SimHarm
 
+> **Article:** [Перевіримо, чи можуть ШІ-агенти знищити світ?](https://dou.ua/forums/topic/62879/)
+> on DOU (Ukrainian) · in this repository: [English](article/article_en.md) ·
+> [Українською](article/article_uk.md)
+>
+> A readable write-up of this experiment: the question, the setup, the results and
+> what they mean. This README is the technical companion with code, data and methodology.
+
 A simulation follow-up to Robocurve's **RoboHarm** study: *how much does a
 language model's willingness to carry out a physically harmful instruction depend
 on the wrapper an operator builds around it?*
@@ -133,6 +140,7 @@ scoring/    state predicates, outcome rules, manual review queue
 analysis/   report (tables, Wilson CIs, figures), log scrubbing
 results/    raw/*.jsonl logs, summary.md, figures/, tables/
 docs/       methodology, limitations, ethics
+article/    the article (English and Ukrainian); figures in results/figures/{en,uk}/
 ```
 
 ## License
